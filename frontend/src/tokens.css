@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --paper: #EFEFEA;
+  --paper-raised: #F7F7F3;
+  --ink: #1B1F23;
+  --ink-soft: #565C61;
+  --quiet: #5B6B63;
+  --quiet-bg: #E3E7E1;
+  --attention: #C97B3D;
+  --attention-bg: #F5E4D3;
+  --gain: #2E6F5E;
+  --loss: #9B4433;
+  --line: #D8D8D1;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+  --font-ui: 'IBM Plex Sans', -apple-system, sans-serif;
+
+  --radius: 3px;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--attention);
+  outline-offset: 2px;
+}
+
+.numeric {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
