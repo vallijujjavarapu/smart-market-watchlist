@@ -12,7 +12,7 @@ Design choices worth calling out:
   retried poll (e.g. after a timeout) can't double-insert.
 """
 import logging
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Dict, List, Optional
 
 import yfinance as yf
@@ -77,7 +77,7 @@ def ingest_snapshots(db: Session, tickers: List[str]) -> int:
     fetch fails, so downstream consumers always have *something* recent to
     read, with an explicit staleness flag rather than a gap or an error."""
     fetched = fetch_latest_prices(tickers)
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     written = 0
 
     for ticker in tickers:

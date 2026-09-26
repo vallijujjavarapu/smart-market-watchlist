@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime
 
 from sqlalchemy import (
     Column, Integer, String, Float, DateTime, ForeignKey, UniqueConstraint, Index, Text
@@ -9,7 +9,7 @@ from app.database import Base
 
 
 def utcnow():
-    return datetime.now(timezone.utc)
+    return datetime.utcnow()
 
 
 class User(Base):

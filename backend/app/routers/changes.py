@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
 from fastapi import APIRouter, Depends
@@ -64,7 +64,7 @@ def _sector_price_series(db: Session, sector: str, exclude_ticker: str, since: d
 @router.get("/changes", response_model=WatchlistChangesResponse)
 def get_changes(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     items = db.query(WatchlistItem).filter(WatchlistItem.user_id == user.id).all()
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     since = now - timedelta(days=VOLATILITY_LOOKBACK_DAYS)
 
     states_by_ticker: Dict[str, UserTickerState] = {
@@ -146,7 +146,7 @@ def mark_seen(
     """Snapshot 'what the user just saw' into server-side state. This is what
     makes 'what changed since I last checked' work across sessions and
     devices - the diff baseline lives in the DB, not in browser storage."""
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     tickers = payload.tickers
     items = db.query(WatchlistItem).filter(WatchlistItem.user_id == user.id)
     if tickers:
