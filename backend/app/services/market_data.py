@@ -87,11 +87,10 @@ def ingest_snapshots(db: Session, tickers: List[str]) -> int:
         if result and result.price is not None:
             price, volume, is_stale = result.price, result.volume, False
         else:
-            last = get_last_known_snapshot(db, ticker)
-            if last:
-                price, volume = last.price, last.volume
-            else:
-                continue  # never had data for this ticker; nothing to fall back to
+            # Failed fetch: don't fabricate a data point. The last real
+            # snapshot stays as-is and /changes flags it stale by age.
+            continue
+                
 
         snapshot = PriceSnapshot(
             ticker=ticker,
